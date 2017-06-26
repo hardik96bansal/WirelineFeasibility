@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string-array name="speed_val">
+        <item>4</item>
+        <item>8</item>
+        <item>12</item>
+        <item>16</item>
+        <item>20</item>
+    </string-array>
+
+    <array name="speed_type">
+        <item>KBPS</item>
+        <item>MBPS</item>
+        <item>GBPS</item>
+    </array>
+    <array name="service_type">
+        <item>IPLC</item>
+        <item>NPLC</item>
+        <item>MPLS L2</item>
+        <item>MPLS L3</item>
+        <item>PRI</item>
+    </array>
+
+    <array name="wire_type">
+        <item>Copper</item>
+        <item>Optic Fibre</item>
+    </array>
+    <array name="circle_type">
+        <item>DEL</item>
+        <item>HAR</item>
+    </array>
+    <array name="business_seg_type">
+        <item>CARRIER</item>
+        <item>ENT-SME</item>
+        <item>ENT-NAT CORP</item>
+        <item>ENT-GOVT</item>
+        <item>ENT-VGE</item>
+        <item>INTERNAL-CARRIER</item>
+    </array>
+
+    <array name="yes_no_array">
+        <item>Yes</item>
+        <item>No</item>
+    </array>
+
+    <array name="location_end">
+        <item>A End</item>
+        <item>B End</item>
+    </array>
+
+</resources>

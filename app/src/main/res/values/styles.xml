@@ -1,0 +1,146 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorForeground">
+            @color/abc_background_cache_hint_selector_material_light
+        </item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <!--<item name="android:windowBackground">@drawable/login_bg2</item>-->
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@drawable/login_bg2</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@color/primaryWhite</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="progressDialogTheme" parent="android:Theme.Holo.Dialog">
+        <item name="android:alertDialogStyle">@style/CustomAlertDialogStyle</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:textColorPrimary">@color/primaryWhite</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="CustomAlertDialogStyle">
+        <item name="android:bottomBright">@android:color/transparent</item>
+        <item name="android:bottomDark">@android:color/transparent</item>
+        <item name="android:bottomMedium">@android:color/transparent</item>
+        <item name="android:centerBright">@android:color/transparent</item>
+        <item name="android:centerDark">@android:color/transparent</item>
+        <item name="android:centerMedium">@android:color/transparent</item>
+        <item name="android:fullBright">@android:color/transparent</item>
+        <item name="android:fullDark">@android:color/transparent</item>
+        <item name="android:topBright">@android:color/transparent</item>
+        <item name="android:topDark">@android:color/transparent</item>
+    </style>
+
+    <style name="logo_text">
+        <item name="android:textColor">@color/primaryWhite</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="version_text">
+        <item name="android:textColor">@color/primaryWhite</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="form_et_style">
+        <item name="android:textColor">@color/primaryBlack</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="nav_item">
+        <item name="android:textColor">@color/primaryBlack</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="nav_count">
+        <item name="android:textColor">@color/primaryWhite</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="heading">
+        <item name="android:textColor">@color/primaryRed</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="subHeading">
+        <item name="android:textColor">@color/primaryBlack</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
+    <style name="btn_white_text" parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:textColor">@color/primaryWhite</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="btn_black_text" parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:textColor">@color/primaryBlack</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="title">
+        <item name="android:textColor">@color/primaryRed</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="title_accent">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="text_red">
+        <item name="android:textColor">@color/primaryRed</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="text">
+        <item name="android:textColor">@color/primaryBlack</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="empty_view">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="ico_empty_view">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">40sp</item>
+    </style>
+
+    <style name="details_text">
+        <item name="android:textColor">@color/primaryBlack</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+</resources>

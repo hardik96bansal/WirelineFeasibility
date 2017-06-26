@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary1">#FFFFFF</color>
+    <color name="colorPrimary">#E60000</color>
+    <color name="colorPrimaryDark">#990000</color>
+    <color name="colorAccent">#9c2aa0</color>
+
+    <!-- Vodafone Guideline Colours-->
+    <color name="primaryRed">#E60000</color>
+    <color name="primaryBlack">#333333</color>
+    <color name="primaryWhite">#ffffff</color>
+
+    <color name="secondaryRed1">#990000</color>
+    <color name="secondaryBlack">#000000</color>
+    <color name="secondaryPurple">#9c2aa0</color>
+    <color name="secondaryViolet">#5E2750</color>
+    <color name="secondaryGreen1">#A8B400</color>
+    <color name="secondaryYellow_1">#FECB00</color>
+    <color name="secondaryYellow_2">#EB9700</color>
+    <color name="secondaryBlue_1">#00B0CA</color>
+    <color name="secondaryBlue_2">#007C92</color>
+
+    <!-- Used for alert-->
+    <color name="secondaryRed_2">#FF5400</color>
+    <color name="secondaryGreen2">#428600</color>
+    <!-- Used for alert-->
+
+    <!-- Used for feasible popup-->
+
+    <color name="green_success">#118443</color>
+    <color name="red_failiure">#e60000</color>
+    <!-- Used for feasible popup-->
+
+    <!-- Used for background -->
+    <color name="grey_1">#666666</color>
+    <color name="grey_2">#999999</color>
+    <color name="grey_3">#AFAFAF</color>
+    <color name="grey_4">#CCCCCC</color>
+    <color name="grey_5">#EBEBEB</color>
+    <color name="grey_6">#F4F4F4</color>
+    <color name="grey_7">#E6E6E6</color>
+    <color name="grey_8">#D9D9D9</color>
+    <!-- Used for background -->
+
+    <!-- Vodafone Guideline Colours-->
+
+
+</resources>

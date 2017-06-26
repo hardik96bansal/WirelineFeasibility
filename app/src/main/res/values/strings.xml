@@ -1,0 +1,91 @@
+<resources>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCSYJYuCgypH0ry5_Rvr8YZBojxrXkz4Wk</string>
+
+
+    <string name="app_name">na feasibility</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="version">Version</string>
+    <string name="powered_by">Powered by</string>
+
+
+    <string name="unable_to_get_location">Unable to get location</string>
+    <string name="location_denied">Location permision denied. Please give location permission.</string>
+    <string name="enable_location">Please enable location</string>
+    <string name="playe_service_unavailable">Google play service unavailable</string>
+    <string name="check_feasibility">Check Feasibility</string>
+    <string name="location">Location</string>
+    <string name="address">Address</string>
+    <string name="rs">&#8377;</string>
+    <string name="select_option">Select an option to check further details</string>
+    <string name="save">Save</string>
+    <string name="cearet_fr">Create FR</string>
+
+    <string name="prompt_password">Enter password</string>
+    <string name="action_sign_in">Sign In</string>
+    <string name="prompt_username">Enter user name</string>
+    <string name="login">Log in</string>
+    <string name="forgot_pwd">Forgot password ?</string>
+    <string name="stay_signed_me">Stay signed in</string>
+    <string name="enter_username">Enter user name</string>
+    <string name="enter_password">Enter password</string>
+    <string name="dd_mmm_yyyy">dd-MM-yyyy</string>
+    <string name="unable_to_get_token">Unable to get token</string>
+    <string name="unable_to_connect_server">Unable to connect server. Please try later.</string>
+    <string name="unexpected_server_error">Unexpected server error</string>
+    <string name="enter_sfaid">Enter SFAID</string>
+    <string name="play_service_not_available">Play service not available.</string>
+    <string name="action_search">Search</string>
+    <string name="action_logout">Logout</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="gps_not_enable">GPS not enabled. Please enable it.</string>
+    <string name="error">Error</string>
+    <string name="speed">Required bandwidth</string>
+    <string name="service_type">Service type</string>
+    <string name="cancel">Cancel</string>
+    <string name="click_here_to_check_feasibility">Click here to check feasibility</string>
+    <string name="enter_valid_speed">Enter valid speed</string>
+    <string name="select_speed_type">Select speed type</string>
+    <string name="select_service_type">Select service type</string>
+    <string name="circle_type">Circle</string>
+    <string name="click_marker_to_check_feasibility">Click marker to check feasibility</string>
+    <string name="data_not_saved">Something went wrong in server please try later.</string>
+    <string name="copyright"><![CDATA[© 2016 Lepton Software]]></string>
+    <string name="data_successfully_saved">Data successfully saved.</string>
+    <string name="under_dev_phase">Under development phase.</string>
+    <string name="action_map">Go to map</string>
+    <string name="invalid_data_passed">Invalid data passed</string>
+    <string name="go_back">Go Back</string>
+    <string name="beta">(Beta)</string>
+    <string name="logout">Logout</string>
+    <string name="summary">Summary</string>
+    <string name="home">Home</string>
+    <string name="title_activity_activity_summary">ActivitySummary</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="data_not_found">Data not found</string>
+    <string name="today">Today</string>
+    <string name="this_month">This Month</string>
+    <string name="this_week">This Week</string>
+    <string name="business_segment">Business Segment</string>
+    <string name="bandwidth">Bandwidth</string>
+    <string name="details">Details</string>
+    <string name="towers">Towers</string>
+    <string name="select_circle_type">Select Circle</string>
+    <string name="dc_location">DC location</string>
+    <string name="cww_location">CWW Location</string>
+    <string name="location_end">Location End</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="feasible">Feasible</string>
+    <string name="not_feasible">Not Feasible</string>
+    <string name="info">INFO</string>
+    <string name="Retry">RETRY</string>
+
+
+    <string name="wire_type">Wire Type</string>
+    <string name="dp_mini_info_heading">Possible feasible DPs</string>
+    <string name="record_id">Record Id</string>
+    <string name="element_id">Element Id</string>
+</resources>

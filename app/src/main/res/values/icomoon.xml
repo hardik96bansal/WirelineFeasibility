@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- FLATICON ICONS START  file name is flaticon.ttf -->
+    <string name="ic_user">"\ue8ed"</string>
+    <string name="ic_pass">"\ue7bf"</string>
+    <string name="ic_key">"\ue900"</string>
+    <string name="ic_home">"\ue87a"</string>
+
+    <string name="ic_search">"\ue8f8"</string>
+    <string name="search_old">"\uf002"</string>
+    <string name="ic_filter">"\uf0b0"</string>
+    <string name="ic_delete">"\ue117"</string>
+    <string name="ic_add">"\ue7d4"</string>
+
+    <string name="marker">"\uead6"</string>
+    <string name="settings">"\ue907"</string>
+    <string name="camera">"\ue7d8"</string>
+    <string name="video">"\uf03d"</string>
+    <string name="gallery">"\uea4b"</string>
+    <string name="edit">"\uf040"</string>
+    <string name="phone">"\ue8b5"</string>
+    <string name="phone_land_line">"\ue675"</string>
+    <string name="back_arrow">"\ue9a7"</string>
+
+    <string name="navigation">"\ue7f4"</string>
+    <string name="chat">"\ue6dc"</string>
+    <string name="building">"\ue87c"</string>
+    <string name="folder">"\ue670"</string>
+    <string name="flag">"\ue93d"</string>
+    <string name="bookmark">"\ue942"</string>
+    <string name="watch">"\ue8c2"</string>
+    <string name="stop_watch">"\ue8c6"</string>
+    <string name="cloud">"\ue666"</string>
+    <string name="sign_out">"\uf08b"</string>
+    <string name="play">"\ue7df"</string>
+    <string name="stop">"\ue985"</string>
+    <string name="radio_checked">"\ue9b4"</string>
+    <string name="radio_unchecked">"\ue9b5"</string>
+    <string name="up_arrow">"\uf077"</string>
+    <string name="down_arrow">"\uf078"</string>
+    <string name="store">"\ue829"</string>
+    <string name="competitor">"\ue83b"</string>
+    <string name="list">"\ue6c4"</string>
+    <string name="calendar">"\ue8c7"</string>
+    <string name="clear">"\ue117"</string>
+    <string name="ic_email">"\ue066"</string>
+    <string name="ic_measure">"\ueaee"</string>
+    <string name="ic_nearby">"\ue839"</string>
+    <string name="ic_phone">"\ue674"</string>
+    <string name="ic_refresh">"\uea5d"</string>
+    <string name="ic_analytics">"\ue039"</string>
+    <string name="ic_quotes">"\ue8ef"</string>
+    <string name="go_arrow">"\ue9a3"</string>
+    <string name="satellite_view">"\ue691"</string>
+    <string name="normal_view">"\ue8bf"</string>
+    <string name="traffic_view">"\ue6ab"</string>
+    <string name="current_location">"\ue0ab"</string>
+    <string name="network_element_location">"\ue814"</string>
+    <string name="smiley">"\ue952"</string>
+    <string name="smiley_sad">"\ue68d"</string>
+    <string name="tick_mark">"\ue65f"</string>
+    <string name="cross_mark">\ue117</string>
+
+
+
+</resources>

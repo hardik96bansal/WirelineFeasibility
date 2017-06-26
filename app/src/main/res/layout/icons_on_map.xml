@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="4dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_current_loc"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/roundedcorner"
+            android:gravity="center"
+            android:text="@string/current_location"
+            android:paddingBottom="2dp"
+            android:layout_marginRight="8dp"
+            android:textSize="18sp" />
+
+
+        <ImageView
+            android:id="@+id/iv_tower"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/roundedcorner"
+            android:gravity="center"
+            android:padding="11dp"
+            android:layout_marginRight="8dp"
+            android:visibility="visible"
+            />
+
+        <TextView
+            android:id="@+id/tv_sat_view"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/roundedcorner"
+            android:gravity="center"
+            android:text="@string/satellite_view"
+            android:paddingBottom="2dp"
+            android:layout_marginRight="8dp"
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:id="@+id/tv_tower"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/roundedcorner"
+            android:gravity="center"
+            android:text="@string/traffic_view"
+            android:layout_marginRight="8dp"
+            android:visibility="gone"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,225 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.leptonmaps.wirelinefeasibility.MapsActivity" >
+
+
+    <RelativeLayout
+        android:id="@+id/rl_map_container"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp">
+        <fragment
+            android:id="@+id/map"
+            android:name="com.leptonmaps.wirelinefeasibility.fragments.TouchableMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="7dp"
+            android:id="@+id/lepton_logo"
+            android:gravity="center_horizontal"
+            android:src="@drawable/lepton_logo"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="3dp"/>
+    </RelativeLayout>
+    <!-- <Button
+                    android:id="@+id/btn_feasibility"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_alignParentBottom="true"
+                    style="@style/btn_white_text"
+                    android:background="@drawable/btn_states_1_flat"
+                    android:text="@string/check_feasibility"/>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+        <include layout="@layout/icons_on_map"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey_4"/>
+        <TextView
+            android:id="@+id/tv_click_to_check"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:background="@color/primaryWhite"
+            android:text="@string/click_marker_to_check_feasibility"
+            android:layout_marginBottom="5dp"
+            style="@style/title"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_service_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey_4"/>
+        <include layout="@layout/service_type"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_dpminiinfo_layout"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey_4"/>
+        <include layout="@layout/dp_chooser"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_popup_feasible_true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey_4"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/green_success"
+            android:gravity="center"
+            android:padding="18dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/feasible"
+                android:textAllCaps="true"
+                android:textSize="21sp"
+                android:gravity="center"
+                android:textColor="@color/primaryWhite"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:id="@+id/tv_popup_feasible"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_gravity="center_vertical"
+
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="@string/info"
+                    android:textColor="@color/secondaryGreen1"
+                    android:layout_marginRight="30dp"
+                    android:textSize="19sp"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/tv_popup_info"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/cross_mark"
+                    android:textColor="@color/secondaryGreen1"
+                    android:layout_marginRight="5dp"
+                    android:textSize="16dp"
+                    android:id="@+id/tv_popup_cross1"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_popup_feasible_false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey_4"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/red_failiure"
+            android:gravity="center"
+            android:padding="18dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/not_feasible"
+                android:textAllCaps="true"
+                android:textSize="21sp"
+                android:gravity="center"
+                android:textColor="@color/primaryWhite"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:id="@+id/tv_popup_notfeasible"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_gravity="center_vertical"
+
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:text="@string/Retry"
+                    android:textColor="@color/secondaryYellow_2"
+                    android:layout_marginRight="30dp"
+                    android:textSize="19sp"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/tv_popup_retry"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/cross_mark"
+                    android:textColor="@color/secondaryYellow_2"
+                    android:layout_marginRight="5dp"
+                    android:textSize="16dp"
+                    android:id="@+id/tv_popup_cross2"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
+
+
