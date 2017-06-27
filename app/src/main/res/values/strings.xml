@@ -88,4 +88,13 @@
     <string name="dp_mini_info_heading">Possible feasible DPs</string>
     <string name="record_id">Record Id</string>
     <string name="element_id">Element Id</string>
+    <string name="dp_info_heading">DP Information</string>
+    
+    <string name="cust_to_road_dist">Customer to Road Dist</string>
+    <string name="along_the_road_dist">Along the Road Dist</string>
+    <string name="road_to_equip_dist">Road to Equipment Dist</string>
+    <string name="total_distance">Total Distance</string>
+    <string name="spare_port">Spare Port</string>
+    <string name="technology">Technology</string>
+    <string name="aerial_dist">Aerial Distance</string>
 </resources>

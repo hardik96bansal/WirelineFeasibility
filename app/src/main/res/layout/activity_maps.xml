@@ -40,6 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
+
         android:orientation="horizontal">
         <include layout="@layout/icons_on_map"/>
     </LinearLayout>
@@ -69,6 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:visibility="gone"
+
         android:orientation="vertical">
         <View
             android:layout_width="match_parent"

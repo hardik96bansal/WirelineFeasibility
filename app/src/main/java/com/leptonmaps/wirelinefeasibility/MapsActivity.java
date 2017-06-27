@@ -236,7 +236,7 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
     private void showDpMiniInfoLayout(boolean isShow){
         if(isShow){
             ll_dp_mini_info.setVisibility(View.VISIBLE);
-            Log.e("yolo height",""+ll_dp_mini_info.getHeight());
+            //Log.e("yolo height",""+ll_dp_mini_info.getHeight());
             resizeMapFragmentFull(false);
 
         }else{
@@ -713,6 +713,8 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
         mAsyncThread.execute(mBean);
         */
 
+        if(showDpProgressDialog != null)showDpProgressDialog.dismiss();
+
         String url=AppConstants.BASE_URL;
         StringBuilder sb=new StringBuilder(url);
         sb.append("api/Network/Entities/?");
@@ -731,11 +733,12 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
         class TempRequest extends AsyncTask<String,Integer,String>{
             @Override
             protected void onPreExecute() {
-                showDpProgressDialog.show();
+                //showDpProgressDialog.show();
 
                 try {
                     if(showDpProgressDialog != null)
                         showDpProgressDialog.show();
+                    Log.e("showdpprogdialog shown",showDpProgressDialog.toString());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -748,7 +751,7 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
             public void initProgressDialog(Context context, DialogInterface.OnCancelListener mOnCancelListener){
                 showDpProgressDialog = new ProgressDialog(context, R.style.progressDialogTheme);
                 showDpProgressDialog.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
-                showDpProgressDialog.setCancelable(false);
+                showDpProgressDialog.setCancelable(true);
                 showDpProgressDialog.setOnCancelListener(mOnCancelListener);
                 //mProgressDialog.setMessage("Please wait...");
                 //ProgressBar spinner = new android.widget.ProgressBar(context,null,android.R.attr.progressBarStyle);
@@ -791,6 +794,7 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
                 );
 
                 requestQueue.add(getRequest);
+
                 return null;
             }
 
@@ -1141,6 +1145,7 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
 
                         //showDpMiniInfoLayout(false);
 
+
                         DPResponse mDpResponse = (DPResponse) JsonParser.getJsonToBean(APIType.GET_DP,mBean.getJson());
                         if(mDpResponse != null){
                             //Log.e("prog","111111111111");
@@ -1230,7 +1235,7 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
 
                             for(int xx=0;xx<points.size();xx=xx+2){
                                 pointsCheck.add(points.get(xx));
-                                Log.e("position point "+points.size(),points.get(xx).latitude+","+points.get(xx).longitude);
+                                //Log.e("position point "+points.size(),points.get(xx).latitude+","+points.get(xx).longitude);
 
                             }
 
@@ -1490,9 +1495,7 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
 
             }
         }
-        if(showDpProgressDialog != null) {
-            showDpProgressDialog.dismiss();
-        }
+        showDpProgressDialog.dismiss();
     }
 
     private void removePolylines(){
@@ -1784,7 +1787,7 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
                         tv_tower.setTextColor(getResources().getColor(R.color.secondaryGreen2));
                         iv_tower.setImageResource(R.drawable.tower_green);
                         //towerRequest(mMap.getCameraPosition().target.latitude,mMap.getCameraPosition().target.longitude);
-                        Log.e("yolo",destinationMarker.latitude+","+destinationMarker.longitude);
+                        //Log.e("yolo",destinationMarker.latitude+","+destinationMarker.longitude);
                         if(destinationMarker.latitude==DEFAULT_LAT){
                             showMyLocation();
                         }

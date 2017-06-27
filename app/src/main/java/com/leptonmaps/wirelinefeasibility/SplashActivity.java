@@ -1,5 +1,6 @@
 package com.leptonmaps.wirelinefeasibility;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -41,6 +42,14 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         Button b1=(Button)findViewById(R.id.splash_map);
+
+        View.OnClickListener aa=new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        };
+
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
