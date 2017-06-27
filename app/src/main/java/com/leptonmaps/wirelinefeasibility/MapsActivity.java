@@ -11,8 +11,10 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.LayerDrawable;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -152,7 +155,7 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
     private boolean isCurrentLoc = false;
     private  AsyncThread mAsyncThread = null;
     private Button btn_feasibility,btn_cancel;
-    private LinearLayout ll_service_layout,ll_dp_mini_info,ll_dp_chooser,ll_feasibility_popup,ll_feasible_true,ll_feasible_false;
+    private LinearLayout ll_service_layout,ll_dp_info,ll_dp_mini_info,ll_dp_chooser,ll_feasibility_popup,ll_feasible_true,ll_feasible_false;
     private Spinner sp_service_type,sp_speed_type,sp_circle_type,sp_segment_type,sp_cww_loc,sp_dc_loc,sp_location_end,sp_wire_type,sp_speed;
     //private EditText et_speed;
     private RelativeLayout rl_map_container;
@@ -168,6 +171,7 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
     private ListView lv_dpList;
     private ArrayList<Polyline> polylines;
     private ArrayList<LatLng> points,points1,points2;
+    private int dpinfoheight;
 
     private double lineAngle_toEndPoint=0,lineAngle_EndPoint_toElem=0;
     private boolean isFeasible=true;
@@ -202,6 +206,18 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
         requestQueue= Volley.newRequestQueue(this);
         clickMarkerBtnState(false);
         polylines=new ArrayList<>();
+
+        //to calculate dpinfo height
+        final ViewTreeObserver observer= ll_dp_info.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        dpinfoheight=ll_dp_info.getHeight();
+                        ll_dp_info.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        ll_dp_info.setVisibility(View.GONE);
+                    }
+                });
     }
 
     @Override
@@ -222,10 +238,13 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
-            openAutocompleteActivity();
+
             showHideServiceLayout(false);
             showDpMiniInfoLayout(false);
             if(ll_feasibility_popup!=null)showFeasiblePopup(false);
+            showDpInfoLayout(false);
+            polyline=null;
+            openAutocompleteActivity();
             return true;
         }
 
@@ -244,6 +263,35 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
             resizeMapFragmentFull(true);
 
         }
+    }
+
+    private void getViewHeight(final int layoutId){
+        final LinearLayout layout = (LinearLayout) findViewById(layoutId);
+        final ViewTreeObserver observer= layout.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        Log.d("Log", "Height: " + layout.getHeight());
+                    }
+                });
+    }
+
+    private void showDpInfoLayout(boolean isShow){
+        if(ll_feasibility_popup!=null)ll_feasibility_popup.setVisibility(View.GONE);
+        if(ll_dp_info!=null){
+
+        if(isShow){
+            ll_dp_info.setVisibility(View.VISIBLE);
+            //Log.e("yolo height",""+ll_dp_info.getLayoutParams().height);
+            resizeMapFragmentFull(false);
+            if(startMarker!=null&&destinationMarker!=null)updateLatLngBounds(startMarker.latitude,startMarker.longitude,destinationMarker.latitude,destinationMarker.longitude);
+
+        }else{
+            ll_dp_info.setVisibility(View.GONE);
+            resizeMapFragmentFull(true);
+
+        }}
     }
 
     private void showFeasiblePopup(boolean isShow){
@@ -320,6 +368,8 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
         btn_cancel = (Button)findViewById(R.id.btn_cancel);
         ll_service_layout = (LinearLayout)findViewById(R.id.ll_service_layout);
         ll_dp_mini_info=(LinearLayout)findViewById(R.id.ll_dpminiinfo_layout);
+        ll_dp_info=(LinearLayout)findViewById(R.id.ll_dpinfo_layout);
+
 
         lv_dpList=(ListView)findViewById(R.id.lv_dp_miniinfo);
         lepton_logo=(ImageView)findViewById(R.id.lepton_logo);
@@ -1641,19 +1691,25 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
     };
 
     GoogleMap.OnCameraChangeListener mOnCameraChangeListener = new GoogleMap.OnCameraChangeListener() {
+        int tempCheck=0;
         @Override
         public void onCameraChange(CameraPosition cameraPosition) {
             if((boolean)tv_tower.getTag()) {
                 //destinationMarker=new LatLng(cameraPosition.target.latitude,cameraPosition.target.longitude);
                 if(ll_feasibility_popup!=null){
-                    if(ll_feasibility_popup.getVisibility()==View.GONE) dpRequest(destinationMarker.latitude,destinationMarker.longitude);
+                    if(ll_feasibility_popup.getVisibility()==View.VISIBLE) tempCheck=1;
 
                 }
 
-                else if(ll_dp_mini_info.getVisibility()==View.GONE&&polyline==null){
-                    dpRequest(destinationMarker.latitude,destinationMarker.longitude);
-
+                if(polyline!=null||ll_dp_mini_info.getVisibility()==View.VISIBLE||ll_dp_info.getVisibility()==View.VISIBLE||tempCheck==1){
+                    //Dont request dp
                 }
+                else dpRequest(destinationMarker.latitude,destinationMarker.longitude);
+
+
+
+
+
                 clickMarkerBtnState(false);
             }
 
@@ -1732,11 +1788,20 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
                 params.bottomMargin= ll_dp_mini_info.getLayoutParams().height;
             }
 
+            else if(ll_dp_info!=null&&ll_dp_info.getVisibility()==View.VISIBLE){
+                //Log.e("yoyoyoyoyoyoyoyo height",""+dpinfoheight);
+
+                parms.bottomMargin = dpinfoheight;
+                params.bottomMargin= dpinfoheight;
+            }
+
 
 
         }
         mapFragment.getView().setLayoutParams(parms);
         lepton_logo.setLayoutParams(params);
+
+
 
 
     }
@@ -1754,6 +1819,7 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
                     showHideServiceLayout(false);
                     showDpMiniInfoLayout(false);
                     clickMarkerBtnState(false);
+                    showDpInfoLayout(false);
                     showMyLocation();
                     break;
 
@@ -1776,6 +1842,7 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
                     showHideServiceLayout(false);
                     showDpMiniInfoLayout(false);
                     clickMarkerBtnState(false);
+                    showDpInfoLayout(false);
                     if((boolean)tv_tower.getTag()){
                         removeTowers();
                         removePolylines();
@@ -1798,6 +1865,11 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
 
 
                     }
+                    break;
+
+                case R.id.tv_popup_info:
+                    showFeasiblePopup(false);
+                    showDpInfoLayout(true);
                     break;
 
                 case R.id.tv_popup_cross1:
@@ -1854,6 +1926,7 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
         public boolean onMarkerClick(Marker marker) {
             //showToast(marker.getId());showHideServiceLayout(true);
             if(ll_feasibility_popup!=null)showFeasiblePopup(false);
+            showDpInfoLayout(false);
             if(searchMarker != null && marker.getId().equalsIgnoreCase(searchMarker.getId())){
                /* if(services == null) {
                     serviceTypeRequest();
@@ -1948,6 +2021,9 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
 
         else if(ll_feasibility_popup!=null&&ll_feasibility_popup.getVisibility()==View.VISIBLE){
             if(ll_feasibility_popup!=null)showFeasiblePopup(false);
+        }
+        else if(ll_dp_info.getVisibility()==View.VISIBLE){
+            showDpInfoLayout(false);
         }
         else if(ll_dp_mini_info.getVisibility()==View.VISIBLE){
             showDpMiniInfoLayout(false);

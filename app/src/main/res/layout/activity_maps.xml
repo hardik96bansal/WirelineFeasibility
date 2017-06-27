@@ -94,6 +94,19 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_dpinfo_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey_4"/>
+        <include layout="@layout/dp_info"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/ll_popup_feasible_true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
