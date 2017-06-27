@@ -1247,6 +1247,7 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
                                 isFeasible=getCrossings(isFirstTurnRight);
                                 if(isFeasible==false)break;
                                 Log.e("position pointCheck "+xx,pointsCheck.get(xx).latitude+","+pointsCheck.get(xx).longitude);
+                                //TestCommit
 
                             }
 
