@@ -105,9 +105,9 @@ public class JsonParser {
                 case GET_DIRECTIONS:
                     String legs;
                     JSONObject res=new JSONObject(json);
-                    Log.e("jsonparser res",res.toString());
+                    //Log.e("jsonparser res",res.toString());
                     legs = res.getJSONArray("routes").getJSONObject(0).getJSONArray("legs").getJSONObject(0).toString();
-                    Log.e("lllllll",legs);
+                    //Log.e("lllllll",legs);
                     obj= mGson.fromJson(legs,DirectionLegResponse.class);
                     break;
             }

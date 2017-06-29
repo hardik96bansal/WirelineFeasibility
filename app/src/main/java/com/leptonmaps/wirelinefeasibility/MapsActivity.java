@@ -111,6 +111,8 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -135,6 +137,7 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
     public final int COLOR_POLYLINE=Color.BLUE;
     public final int COLOR_DOTTED_POLYLINE=Color.DKGRAY;
     public final int COLOR_AERIAL_POLYLINE=Color.GREEN;
+    public final static double AVERAGE_RADIUS_OF_EARTH_KM = 6371;
     public static String finalurl;
 
     public static final int PATTERN_GAP_LENGTH_PX = 10;
@@ -152,7 +155,7 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
             tv_element_id,tv_elem_id,tv_record_id,tv_rec_id,tv_dpchooser_heading,tv_popup_true_feasible,tv_popup_true_info,tv_popup_true_cross1,tv_popup_true_notfeasible,tv_popup_true_retry,tv_popup_true_cross2;
     private final float zoomLevel = 17.0f;
     protected LocationRequest mLocationRequest;
-    private boolean isCurrentLoc = false;
+    private boolean isCurrentLoc = false,wasDPListOpen=true;
     private  AsyncThread mAsyncThread = null;
     private Button btn_feasibility,btn_cancel;
     private LinearLayout ll_service_layout,ll_dp_info,ll_dp_mini_info,ll_dp_chooser,ll_feasibility_popup,ll_feasible_true,ll_feasible_false;
@@ -174,7 +177,7 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
     private int dpinfoheight;
 
     private double lineAngle_toEndPoint=0,lineAngle_EndPoint_toElem=0;
-    private boolean isFeasible=true;
+    private boolean isFeasible=true,isFeasPopupOpen=false;
 
     private ProgressDialog showDpProgressDialog;
 
@@ -301,6 +304,7 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
             //resizeMapFragmentFull(false);
 
         }else{
+            isFeasPopupOpen=false;
             ll_feasibility_popup.setVisibility(View.GONE);
             resizeMapFragmentFull(true);
 
@@ -788,7 +792,6 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
                 try {
                     if(showDpProgressDialog != null)
                         showDpProgressDialog.show();
-                    Log.e("showdpprogdialog shown",showDpProgressDialog.toString());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -1198,17 +1201,42 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
 
                         DPResponse mDpResponse = (DPResponse) JsonParser.getJsonToBean(APIType.GET_DP,mBean.getJson());
                         if(mDpResponse != null){
-                            //Log.e("prog","111111111111");
                             if(mDpResponse.getResults()!=null){
-                               // Log.e("prog","222222222222");
                                 mDpResponseResults=mDpResponse.getResults();
-                                //Log.e("prog","3333333333333");
+
+                                for (int i=0;i<mDpResponseResults.size();i++) {
+                                    if(mDpResponseResults.get(i) != null) {
+                                        mDpResponseResults.get(i).setAerialDistance(calculateDistanceInMeter(destinationMarker.latitude,destinationMarker.longitude,
+                                                mDpResponseResults.get(i).getLatitude(),mDpResponseResults.get(i).getLongitude()));
+                                    }
+                                }
+
+
+                                Collections.sort(mDpResponseResults, new Comparator<DPResponse.Result>() {
+                                    @Override public int compare(DPResponse.Result p1, DPResponse.Result p2) {
+                                        return p1.getAerialDistance() - p2.getAerialDistance(); // Ascending
+                                    }
+
+                                });
+
+                                /*
+
+                                for (int i=1;i<mDpResponseResults.size();i++) {
+                                    double a=mDpResponseResults.get(i).getLatitude();
+                                    double b=mDpResponseResults.get(i).getLongitude();
+                                    int distFromPrev=calculateDistanceInMeter(a,b,mDpResponseResults.get(i-1).getLatitude(),mDpResponseResults.get(i-1).getLongitude());
+                                    if(distFromPrev<2){mDpResponseResults.remove(i);Log.e("dist <2",i-1+","+i);}
+                                    //if(mDpResponseResults.get(i-1).getAerialDistance()==mDpResponseResults.get(i).getAerialDistance()) mDpResponseResults.remove(i);
+
+                                }
+
+                                */
+
+
+
                                 dpListAdapter=new DpListAdapter(MapsActivity.this,mDpResponseResults);
-                                //Log.e("prog","44444444444444");
                                 lv_dpList.setAdapter(dpListAdapter);
-                                //Log.e("prog","55555555555555");
                                 if((boolean)tv_tower.getTag()){
-                                    //Log.e("prog","666666666666");
                                     showDPs(mDpResponse.getResults());
                                 }
 
@@ -1226,7 +1254,7 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
                         points.clear();
                         points1.clear();
                         points2.clear();
-                        Log.e("mapsActivity Handler",mBean.getJson());
+                        //Log.e("mapsActivity Handler",mBean.getJson());
                         List list=null;
                         DirectionLegResponse directionLegResponse=(DirectionLegResponse)JsonParser.getJsonToBean(APIType.GET_DIRECTIONS,mBean.getJson());
                         DirectionLegResponse.Distance distance=directionLegResponse.getDistance();
@@ -1273,7 +1301,10 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
 
 
                             lineAngle_toEndPoint = getAngleInDegrees(startMarker.latitude, points.get(0).latitude, startMarker.longitude, points.get(0).longitude);
-                            lineAngle_EndPoint_toElem = getAngleInDegrees(startMarker.latitude, points.get(1).latitude, startMarker.longitude, points.get(1).longitude);
+                            if(points.size()==1){
+                            lineAngle_EndPoint_toElem = getAngleInDegrees(startMarker.latitude, points.get(0).latitude, startMarker.longitude, points.get(0).longitude);}
+                            else lineAngle_EndPoint_toElem = getAngleInDegrees(startMarker.latitude, points.get(1).latitude, startMarker.longitude, points.get(1).longitude);
+
                             boolean isFirstTurnRight=checkFirstTurn();
 
                             Log.e("isFirstTurnRight",""+isFirstTurnRight);
@@ -1306,6 +1337,11 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
                             lineAngle_toEndPoint = getAngleInDegrees(pointsCheck.get(pointsCheck.size()-2).latitude, pointsCheck.get(pointsCheck.size()-1).latitude, pointsCheck.get(pointsCheck.size()-2).longitude, pointsCheck.get(pointsCheck.size()-1).longitude);
                             lineAngle_EndPoint_toElem = getAngleInDegrees(pointsCheck.get(pointsCheck.size()-2).latitude, destinationMarker.latitude, pointsCheck.get(pointsCheck.size()-2).longitude, destinationMarker.longitude);
                             if(isFeasible==true)isFeasible=getCrossings(isFirstTurnRight);
+
+
+
+                            if(stps.size()==1){isFeasible=true;Log.e("chhhh","Number of steps is 1");}
+
 
 
 
@@ -1480,6 +1516,10 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
         }
     });
 
+
+
+
+
     private void shoServiceType(APIType type,List<String> results) {
         if(results == null)return;
         switch (type){
@@ -1543,6 +1583,8 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
                 marker.setTag(TAGDP);
                 towerMarkerList.add(marker);
                 markerMap.put(marker.getId(),tmp);
+
+
 
             }
         }
@@ -1691,18 +1733,26 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
     };
 
     GoogleMap.OnCameraChangeListener mOnCameraChangeListener = new GoogleMap.OnCameraChangeListener() {
-        int tempCheck=0;
         @Override
         public void onCameraChange(CameraPosition cameraPosition) {
             if((boolean)tv_tower.getTag()) {
                 //destinationMarker=new LatLng(cameraPosition.target.latitude,cameraPosition.target.longitude);
                 if(ll_feasibility_popup!=null){
-                    if(ll_feasibility_popup.getVisibility()==View.VISIBLE) tempCheck=1;
+                    //if(ll_feasibility_popup.getVisibility()==View.VISIBLE) isFeasPopupOpen=true;
 
                 }
 
-                if(polyline!=null||ll_dp_mini_info.getVisibility()==View.VISIBLE||ll_dp_info.getVisibility()==View.VISIBLE||tempCheck==1){
+                if(polyline!=null||ll_dp_mini_info.getVisibility()==View.VISIBLE||ll_dp_info.getVisibility()==View.VISIBLE||isFeasPopupOpen){
                     //Dont request dp
+                    /*
+                    if(polyline!=null)Log.e("onCamerachange","polyline!=null");
+
+                    if(ll_dp_mini_info.getVisibility()==View.VISIBLE)Log.e("onCamerachange","ll_dp_mini_info.getVisibility()==View.VISIBLE");
+
+                    if(ll_dp_info.getVisibility()==View.VISIBLE)Log.e("onCamerachange","ll_dp_info.getVisibility()==View.VISIBLE");
+
+                    if(isFeasPopupOpen)Log.e("onCamerachange","isFeasPopupOpen=true");
+                    */
                 }
                 else dpRequest(destinationMarker.latitude,destinationMarker.longitude);
 
@@ -1722,18 +1772,23 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             //mMap.clear();
 
+            isFeasPopupOpen=true;
             removePolylines();
-            TextView lat=(TextView)findViewById(R.id.list_lat);
-            TextView lng=(TextView)findViewById(R.id.list_lng);
+            TextView lat=(TextView)view.findViewById(R.id.list_lat);
+            TextView lng=(TextView)view.findViewById(R.id.list_lng);
+
 
             Double latitude=Double.parseDouble(lat.getText().toString());
             Double longitude=Double.parseDouble(lng.getText().toString());
+
+            Log.e("clicked "+i,latitude+","+longitude);
             startMarker=new LatLng(latitude,longitude);
 
 
 
             //if(polyline != null)polyline.remove();
 
+            wasDPListOpen=true;
             getPath(latitude,longitude,destinationMarker.latitude,destinationMarker.longitude);
             showDpMiniInfoLayout(false);
 
@@ -1750,6 +1805,7 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
     };
 
     private void assignPopupWindow(boolean isFeasible){
+        isFeasPopupOpen=true;
         if(isFeasible){
             ll_feasibility_popup=ll_feasible_true;
         }
@@ -1830,10 +1886,12 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
                     if((boolean)tv_sat_view.getTag()){
                         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
                         tv_sat_view.setTag(false);
+                        tv_sat_view.setTextColor(Color.GRAY);
                     }
                     else{
-                    mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-                    tv_sat_view.setTag(true);
+                        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                        tv_sat_view.setTag(true);
+                        tv_sat_view.setTextColor(getResources().getColor(R.color.secondaryGreen2));
                     }
                     break;
                 //case R.id.tv_tower:
@@ -1867,6 +1925,11 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
                     }
                     break;
 
+                case R.id.tv_popup_retry:
+                    if(wasDPListOpen)showDpMiniInfoLayout(true);
+                    showFeasiblePopup(false);
+                    break;
+
                 case R.id.tv_popup_info:
                     showFeasiblePopup(false);
                     showDpInfoLayout(true);
@@ -1884,6 +1947,9 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
 
                 case R.id.btn_feasibility:
                     //TODO: Check if results found before
+                    if(!(boolean)tv_tower.getTag()){
+                        iv_tower.performClick();
+                    }
                     if(isValidData()){
                         //costRequest();
                         showHideServiceLayout(false);
@@ -1969,6 +2035,7 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
 
             }else{
 
+                wasDPListOpen=false;
                 removePolylines();
                 marker.showInfoWindow();
                 startMarker=marker.getPosition();
@@ -1990,6 +2057,25 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
         }
     };
 
+
+    private int calculateDistanceInMeter(double userLat, double userLng,
+                                            double venueLat, double venueLng) {
+        double R = 6371; // Radius of the earth in km
+        double dLat = deg2rad(userLat-venueLat);  // deg2rad below
+        double dLon = deg2rad(userLng-venueLng);
+        double a =
+                Math.sin(dLat/2) * Math.sin(dLat/2) +
+                        Math.cos(deg2rad(userLat)) * Math.cos(deg2rad(venueLat)) *
+                                Math.sin(dLon/2) * Math.sin(dLon/2)
+                ;
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        double d = R * c*1000; // Distance in km
+        return (int)d;
+    }
+
+    private double deg2rad(double deg) {
+        return deg * (Math.PI/180);
+    }
 
     private boolean isValidData(){
         if(sp_speed.getSelectedItem().toString().length() == 0 || Integer.valueOf(sp_speed.getSelectedItem().toString()) == 0){

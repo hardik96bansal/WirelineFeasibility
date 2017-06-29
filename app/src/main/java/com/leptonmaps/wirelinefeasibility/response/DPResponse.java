@@ -65,5 +65,15 @@ public class DPResponse implements Serializable {
         private double Latitude;
         private double Longitude;
 
+        public int getAerialDistance() {
+            return AerialDistance;
+        }
+
+        public void setAerialDistance(int aerialDistance) {
+            AerialDistance = aerialDistance;
+        }
+
+        private int AerialDistance;
+
     }
 }
