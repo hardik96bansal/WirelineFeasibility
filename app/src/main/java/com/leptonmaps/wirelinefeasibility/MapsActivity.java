@@ -1332,6 +1332,8 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
 
                             }
 
+
+
                             //isFeasible=getCrossings();
                             Log.e("position pointcheck","checking for final path");
                             lineAngle_toEndPoint = getAngleInDegrees(pointsCheck.get(pointsCheck.size()-2).latitude, pointsCheck.get(pointsCheck.size()-1).latitude, pointsCheck.get(pointsCheck.size()-2).longitude, pointsCheck.get(pointsCheck.size()-1).longitude);
@@ -1339,8 +1341,14 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
                             if(isFeasible==true)isFeasible=getCrossings(isFirstTurnRight);
 
 
+                            if(stps.size()==1){
+                                if(calculateDistanceInMeter(destinationMarker.latitude,destinationMarker.longitude,startMarker.latitude,startMarker.longitude)<=10){
+                                    isFeasible=true;//Log.e("chhhh","Number of steps is 1");
+                                }
 
-                            if(stps.size()==1){isFeasible=true;Log.e("chhhh","Number of steps is 1");}
+                            }
+
+
 
 
 
