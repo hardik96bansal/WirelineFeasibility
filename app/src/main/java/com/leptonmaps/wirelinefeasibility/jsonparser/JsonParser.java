@@ -7,6 +7,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import com.leptonmaps.wirelinefeasibility.MapsActivity;
 import com.leptonmaps.wirelinefeasibility.enums.APIType;
 import com.leptonmaps.wirelinefeasibility.enums.LayerType;
 import com.leptonmaps.wirelinefeasibility.response.CostResponse;
@@ -107,8 +108,10 @@ public class JsonParser {
                     JSONObject res=new JSONObject(json);
                     //Log.e("jsonparser res",res.toString());
                     legs = res.getJSONArray("routes").getJSONObject(0).getJSONArray("legs").getJSONObject(0).toString();
+
                     //Log.e("lllllll",legs);
                     obj= mGson.fromJson(legs,DirectionLegResponse.class);
+
                     break;
             }
         } catch (JsonSyntaxException e) {

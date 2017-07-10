@@ -36,6 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textStyle="bold"
+            android:textColor="@color/primaryBlack"
+            android:id="@+id/tv_dpinfo_eid"
             android:text="@string/element_id"/>
         <TextView
             android:layout_width="match_parent"
@@ -56,6 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textStyle="bold"
+            android:textColor="@color/primaryBlack"
+            android:id="@+id/tv_dpinfo_cust_road_d"
             android:text="@string/cust_to_road_dist"/>
         <TextView
             android:layout_width="match_parent"
@@ -74,6 +78,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textStyle="bold"
+            android:textColor="@color/primaryBlack"
+            android:id="@+id/tv_dpinfo_along_road_d"
             android:text="@string/along_the_road_dist"/>
         <TextView
             android:layout_width="match_parent"
@@ -92,6 +98,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textStyle="bold"
+            android:textColor="@color/primaryBlack"
+            android:id="@+id/tv_dpinfo_equip_road_d"
             android:text="@string/road_to_equip_dist"/>
         <TextView
             android:layout_width="match_parent"
@@ -110,6 +118,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textStyle="bold"
+            android:textColor="@color/primaryBlack"
+            android:id="@+id/tv_dpinfo_total_d"
             android:text="@string/total_distance"/>
         <TextView
             android:layout_width="match_parent"
@@ -128,6 +138,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textStyle="bold"
+                android:textColor="@color/primaryBlack"
+                android:id="@+id/tv_dpinfo_aerial_d"
                 android:text="@string/aerial_dist"/>
             <TextView
                 android:layout_width="match_parent"
@@ -146,6 +158,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textStyle="bold"
+            android:textColor="@color/primaryBlack"
+            android:id="@+id/tv_dpinfo_spare_p"
             android:text="@string/spare_port"/>
         <TextView
             android:layout_width="match_parent"
@@ -164,6 +178,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textStyle="bold"
+            android:textColor="@color/primaryBlack"
+            android:id="@+id/tv_dpinfo_bdwth"
             android:text="@string/bandwidth"/>
         <TextView
             android:layout_width="match_parent"
@@ -182,6 +198,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textStyle="bold"
+            android:textColor="@color/primaryBlack"
+            android:id="@+id/tv_dpinfo_tec"
             android:text="@string/technology"/>
         <TextView
             android:layout_width="match_parent"

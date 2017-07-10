@@ -94,7 +94,7 @@
     <string name="along_the_road_dist">Along the Road Distance</string>
     <string name="road_to_equip_dist">Road to Equipment Distance</string>
     <string name="total_distance">Total Distance</string>
-    <string name="spare_port">Spare Port</string>
+    <string name="spare_port">Spare Ports</string>
     <string name="technology">Technology</string>
     <string name="aerial_dist">Aerial Distance</string>
 </resources>

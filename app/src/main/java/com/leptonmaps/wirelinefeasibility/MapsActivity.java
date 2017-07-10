@@ -156,7 +156,8 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
             tv_element_id,tv_elem_id,tv_record_id,tv_rec_id,tv_dpchooser_heading,tv_popup_true_feasible,
             tv_popup_true_info,tv_popup_true_cross1,tv_popup_true_notfeasible,tv_popup_true_retry,tv_popup_true_cross2,
             tv_dpinfo_elemid,tv_dpinfo_custroaddist,tv_dpinfo_alongroaddist,tv_dpinfo_roadelemdist,tv_dpinfo_totaldist,
-            tv_dpinfo_spareport,tv_dpinfo_bandwitdth,tv_dpinfo_tech,tv_dpinfo_aerialdist;
+            tv_dpinfo_spareport,tv_dpinfo_bandwitdth,tv_dpinfo_tech,tv_dpinfo_aerialdist,tv_dpinfo_eid,tv_dpinfo_custroadd,tv_dpinfo_alongroadd,tv_dpinfo_roadelemd,tv_dpinfo_totald,
+            tv_dpinfo_sprprt,tv_dpinfo_bdwth,tv_dpinfo_tec,tv_dpinfo_aeriald;
     private final float zoomLevel = 17.0f;
     protected LocationRequest mLocationRequest;
     private boolean isCurrentLoc = false,wasDPListOpen=true;
@@ -413,6 +414,16 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
         tv_dpinfo_tech=(TextView)findViewById(R.id.tv_dpinfo_technology);
         tv_dpinfo_aerialdist=(TextView)findViewById(R.id.tv_dpinfo_aerial_dist);
 
+        tv_dpinfo_eid=(TextView)findViewById(R.id.tv_dpinfo_eid);
+        tv_dpinfo_custroadd=(TextView)findViewById(R.id.tv_dpinfo_cust_road_d);
+        tv_dpinfo_alongroadd=(TextView)findViewById(R.id.tv_dpinfo_along_road_d);
+        tv_dpinfo_roadelemd=(TextView)findViewById(R.id.tv_dpinfo_equip_road_d);
+        tv_dpinfo_totald=(TextView)findViewById(R.id.tv_dpinfo_total_d);
+        tv_dpinfo_sprprt=(TextView)findViewById(R.id.tv_dpinfo_spare_p);
+        tv_dpinfo_bdwth=(TextView)findViewById(R.id.tv_dpinfo_bdwth);
+        tv_dpinfo_tec=(TextView)findViewById(R.id.tv_dpinfo_tec);
+        tv_dpinfo_aeriald=(TextView)findViewById(R.id.tv_dpinfo_aerial_d);
+
 
     }
     private void setTypeface() {
@@ -451,6 +462,26 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
         tv_location_end.setTypeface(vodafoneRgBd);
         */
 
+
+        tv_dpinfo_elemid.setTypeface(vodafoneRgBd);
+        tv_dpinfo_custroaddist.setTypeface(vodafoneRgBd);
+        tv_dpinfo_roadelemdist.setTypeface(vodafoneRgBd);
+        tv_dpinfo_tech.setTypeface(vodafoneRgBd);
+        tv_dpinfo_totaldist.setTypeface(vodafoneRgBd);
+        tv_dpinfo_aerialdist.setTypeface(vodafoneRgBd);
+        tv_dpinfo_alongroaddist.setTypeface(vodafoneRgBd);
+        tv_dpinfo_spareport.setTypeface(vodafoneRgBd);
+        tv_dpinfo_bandwitdth.setTypeface(vodafoneRgBd);
+
+        tv_dpinfo_eid.setTypeface(vodafoneRgBd);
+        tv_dpinfo_custroadd.setTypeface(vodafoneRgBd);
+        tv_dpinfo_roadelemd.setTypeface(vodafoneRgBd);
+        tv_dpinfo_tec.setTypeface(vodafoneRgBd);
+        tv_dpinfo_totald.setTypeface(vodafoneRgBd);
+        tv_dpinfo_aeriald.setTypeface(vodafoneRgBd);
+        tv_dpinfo_alongroadd.setTypeface(vodafoneRgBd);
+        tv_dpinfo_sprprt.setTypeface(vodafoneRgBd);
+        tv_dpinfo_bdwth.setTypeface(vodafoneRgBd);
     }
 
 
@@ -738,14 +769,14 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
 
     private void fillInfoWindow(String elemID,int custRoadDist,int alongRoadDist,int elemRoadDist,int totalDist,int sparePorts,int bandwidth,String technology,int aerialDist){
         tv_dpinfo_elemid.setText(elemID);
-        tv_dpinfo_custroaddist.setText(custRoadDist+"m");
-        tv_dpinfo_alongroaddist.setText(alongRoadDist+"m");
-        tv_dpinfo_roadelemdist.setText(elemRoadDist+"m");
-        tv_dpinfo_totaldist.setText(totalDist+"m");
+        tv_dpinfo_custroaddist.setText(custRoadDist+" m");
+        tv_dpinfo_alongroaddist.setText(alongRoadDist+" m");
+        tv_dpinfo_roadelemdist.setText(elemRoadDist+" m");
+        tv_dpinfo_totaldist.setText(totalDist+" m");
         tv_dpinfo_spareport.setText(""+sparePorts);
-        tv_dpinfo_bandwitdth.setText(""+bandwidth);
+        tv_dpinfo_bandwitdth.setText(""+bandwidth+" Mbps");
         tv_dpinfo_tech.setText(""+technology);
-        tv_dpinfo_aerialdist.setText(aerialDist+"m");
+        tv_dpinfo_aerialdist.setText(aerialDist+" m");
 
         Log.e("yoyoyooyoy","fillWindowCompleted");
 
@@ -1292,7 +1323,7 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
                         List list=null;
                         DirectionLegResponse directionLegResponse=(DirectionLegResponse)JsonParser.getJsonToBean(APIType.GET_DIRECTIONS,mBean.getJson());
                         DirectionLegResponse.Distance distance=directionLegResponse.getDistance();
-                        String dist=distance.getText();
+                        alongRoadDist=distance.getValue();
 
                         if(directionLegResponse.getSteps()!=null){
                             ArrayList<DirectionLegResponse.Steps> steps= directionLegResponse.getSteps();
@@ -1387,11 +1418,10 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
                             custRoadDist=calculateDistanceInMeter(destinationMarker.latitude,destinationMarker.longitude,lastPoint.latitude,lastPoint.longitude);
                             roadElemDist=calculateDistanceInMeter(startMarker.latitude,startMarker.longitude,firstPoint.latitude,firstPoint.longitude);
                             Log.e("rfgsdfg",""+roadElemDist);
-                            alongRoadDist=0;
                             totalDist=custRoadDist+roadElemDist+alongRoadDist;
                             aerialDist=calculateDistanceInMeter(destinationMarker.latitude,destinationMarker.longitude,startMarker.latitude,startMarker.longitude);
-                            sparePorts=0;
-                            bandwidth=0;
+                            sparePorts=3;
+                            bandwidth=4;
                             if(clickedMarker!=null){
                                 elemID=clickedMarker.getTitle();
                             }
