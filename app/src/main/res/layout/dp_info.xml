@@ -42,8 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:gravity="center"
-            android:id="@+id/tv_dpinfo_element_id"
-            android:text="Value"/>
+            android:id="@+id/tv_dpinfo_element_id"/>
     </LinearLayout>
     
     
@@ -63,8 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:gravity="center"
-            android:id="@+id/tv_dpinfo_cust_road_dist"
-            android:text="Value"/>
+            android:id="@+id/tv_dpinfo_cust_road_dist"/>
     </LinearLayout>
 
     <LinearLayout
@@ -82,8 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:gravity="center"
-            android:id="@+id/tv_dpinfo_along_road_dist"
-            android:text="Value"/>
+            android:id="@+id/tv_dpinfo_along_road_dist"/>
     </LinearLayout>
 
     <LinearLayout
@@ -101,8 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:gravity="center"
-            android:id="@+id/tv_dpinfo_equip_road_dist"
-            android:text="Value"/>
+            android:id="@+id/tv_dpinfo_equip_road_dist"/>
     </LinearLayout>
 
     <LinearLayout
@@ -120,9 +116,26 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:gravity="center"
-            android:id="@+id/tv_dpinfo_total_dist"
-            android:text="Value"/>
+            android:id="@+id/tv_dpinfo_total_dist"/>
     </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:text="@string/aerial_dist"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:id="@+id/tv_dpinfo_aerial_dist"/>
+        </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -139,8 +152,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:gravity="center"
-            android:id="@+id/tv_dpinfo_spare_port"
-            android:text="Value"/>
+            android:id="@+id/tv_dpinfo_spare_port"/>
     </LinearLayout>
 
     <LinearLayout
@@ -158,8 +170,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:gravity="center"
-            android:id="@+id/tv_dpinfo_bandwidth"
-            android:text="Value"/>
+            android:id="@+id/tv_dpinfo_bandwidth"/>
     </LinearLayout>
 
     <LinearLayout
@@ -177,28 +188,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:gravity="center"
-            android:id="@+id/tv_dpinfo_technology"
-            android:text="Value"/>
+            android:id="@+id/tv_dpinfo_technology"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textStyle="bold"
-            android:text="@string/aerial_dist"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:id="@+id/tv_dpinfo_aerial_dist"
-            android:text="Value"/>
-    </LinearLayout>
+
 
     </LinearLayout>
 

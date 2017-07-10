@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -148,11 +149,14 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
     private GoogleApiClient googleApiClient;
     private GoogleMap mMap;
     private TouchableMapFragment mapFragment = null;
-    private Marker searchMarker = null;
+    private Marker searchMarker = null,clickedMarker;
     private LatLng destinationMarker=null,startMarker=null;
     private TextView tv_current_loc, tv_tower,tv_required_speed,tv_service_type,tv_circle,
             tv_click_to_check,tv_segment,tv_cww_loc,tv_dc_loc,tv_location_end,tv_sat_view,tv_wire_type,
-            tv_element_id,tv_elem_id,tv_record_id,tv_rec_id,tv_dpchooser_heading,tv_popup_true_feasible,tv_popup_true_info,tv_popup_true_cross1,tv_popup_true_notfeasible,tv_popup_true_retry,tv_popup_true_cross2;
+            tv_element_id,tv_elem_id,tv_record_id,tv_rec_id,tv_dpchooser_heading,tv_popup_true_feasible,
+            tv_popup_true_info,tv_popup_true_cross1,tv_popup_true_notfeasible,tv_popup_true_retry,tv_popup_true_cross2,
+            tv_dpinfo_elemid,tv_dpinfo_custroaddist,tv_dpinfo_alongroaddist,tv_dpinfo_roadelemdist,tv_dpinfo_totaldist,
+            tv_dpinfo_spareport,tv_dpinfo_bandwitdth,tv_dpinfo_tech,tv_dpinfo_aerialdist;
     private final float zoomLevel = 17.0f;
     protected LocationRequest mLocationRequest;
     private boolean isCurrentLoc = false,wasDPListOpen=true;
@@ -180,6 +184,9 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
     private boolean isFeasible=true,isFeasPopupOpen=false;
 
     private ProgressDialog showDpProgressDialog;
+
+    int custRoadDist,roadElemDist,alongRoadDist,totalDist,aerialDist,sparePorts,bandwidth;
+    String elemID="",technology="";
 
 
     @Override
@@ -324,6 +331,7 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
         View view = mLayoutInflater.inflate(R.layout.activity_maps,null);
         View view1=mLayoutInflater.inflate(R.layout.list_item_dpinfo,null);
         View view2=mLayoutInflater.inflate(R.layout.dp_chooser,null);
+        View view3=mLayoutInflater.inflate(R.layout.dp_info,null);
 
         ll_view_container.addView(view);
         mapFragment = (TouchableMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -394,6 +402,18 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
 
         //et_speed = (EditText)findViewById(R.id.et_speed);
         rl_map_container = (RelativeLayout)findViewById(R.id.rl_map_container);
+
+        tv_dpinfo_elemid=(TextView)findViewById(R.id.tv_dpinfo_element_id);
+        tv_dpinfo_custroaddist=(TextView)findViewById(R.id.tv_dpinfo_cust_road_dist);
+        tv_dpinfo_alongroaddist=(TextView)findViewById(R.id.tv_dpinfo_along_road_dist);
+        tv_dpinfo_roadelemdist=(TextView)findViewById(R.id.tv_dpinfo_equip_road_dist);
+        tv_dpinfo_totaldist=(TextView)findViewById(R.id.tv_dpinfo_total_dist);
+        tv_dpinfo_spareport=(TextView)findViewById(R.id.tv_dpinfo_spare_port);
+        tv_dpinfo_bandwitdth=(TextView)findViewById(R.id.tv_dpinfo_bandwidth);
+        tv_dpinfo_tech=(TextView)findViewById(R.id.tv_dpinfo_technology);
+        tv_dpinfo_aerialdist=(TextView)findViewById(R.id.tv_dpinfo_aerial_dist);
+
+
     }
     private void setTypeface() {
         tv_tower.setTypeface(icoMoon);
@@ -716,6 +736,20 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
     }
 
 
+    private void fillInfoWindow(String elemID,int custRoadDist,int alongRoadDist,int elemRoadDist,int totalDist,int sparePorts,int bandwidth,String technology,int aerialDist){
+        tv_dpinfo_elemid.setText(elemID);
+        tv_dpinfo_custroaddist.setText(custRoadDist+"m");
+        tv_dpinfo_alongroaddist.setText(alongRoadDist+"m");
+        tv_dpinfo_roadelemdist.setText(elemRoadDist+"m");
+        tv_dpinfo_totaldist.setText(totalDist+"m");
+        tv_dpinfo_spareport.setText(""+sparePorts);
+        tv_dpinfo_bandwitdth.setText(""+bandwidth);
+        tv_dpinfo_tech.setText(""+technology);
+        tv_dpinfo_aerialdist.setText(aerialDist+"m");
+
+        Log.e("yoyoyooyoy","fillWindowCompleted");
+
+    }
 
 
     private void towerRequest(double lat, double lng){
@@ -1350,6 +1384,23 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
 
 
 
+                            custRoadDist=calculateDistanceInMeter(destinationMarker.latitude,destinationMarker.longitude,lastPoint.latitude,lastPoint.longitude);
+                            roadElemDist=calculateDistanceInMeter(startMarker.latitude,startMarker.longitude,firstPoint.latitude,firstPoint.longitude);
+                            Log.e("rfgsdfg",""+roadElemDist);
+                            alongRoadDist=0;
+                            totalDist=custRoadDist+roadElemDist+alongRoadDist;
+                            aerialDist=calculateDistanceInMeter(destinationMarker.latitude,destinationMarker.longitude,startMarker.latitude,startMarker.longitude);
+                            sparePorts=0;
+                            bandwidth=0;
+                            if(clickedMarker!=null){
+                                elemID=clickedMarker.getTitle();
+                            }
+                            technology="Copper";
+
+                            fillInfoWindow(elemID,custRoadDist,alongRoadDist,roadElemDist,totalDist,sparePorts,bandwidth,technology,aerialDist);
+
+
+
 
 
 
@@ -1586,8 +1637,8 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
                 markerOpt.position(new LatLng(tmp.getLatitude(), tmp.getLongitude()));
                 markerOpt.anchor(0.5f,0.5f);
                 Marker marker =  mMap.addMarker(markerOpt);
-                marker.setTitle(tmp.getRecordID());
-                marker.setSnippet(tmp.getElementID());
+                marker.setTitle(tmp.getElementID());
+                marker.setSnippet(tmp.getRecordID());
                 marker.setTag(TAGDP);
                 towerMarkerList.add(marker);
                 markerMap.put(marker.getId(),tmp);
@@ -1784,8 +1835,10 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
             removePolylines();
             TextView lat=(TextView)view.findViewById(R.id.list_lat);
             TextView lng=(TextView)view.findViewById(R.id.list_lng);
+            TextView elemName=(TextView)view.findViewById(R.id.tv_element_id);
 
 
+            elemID=elemName.getText().toString();
             Double latitude=Double.parseDouble(lat.getText().toString());
             Double longitude=Double.parseDouble(lng.getText().toString());
 
@@ -2046,11 +2099,11 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
                 wasDPListOpen=false;
                 removePolylines();
                 marker.showInfoWindow();
+                clickedMarker=marker;
                 startMarker=marker.getPosition();
                 showHideServiceLayout(false);
                 getPath(marker.getPosition().latitude,marker.getPosition().longitude,destinationMarker.latitude,destinationMarker.longitude);
                 showDpMiniInfoLayout(false);
-
 
                 MarkerOptions markerOpt = new MarkerOptions();
                 markerOpt.draggable(false);
@@ -2060,6 +2113,7 @@ public class MapsActivity extends BaseActivity implements BaseInterface, OnMapRe
                 Marker mMarker =  mMap.addMarker(markerOpt);
                 mMarker.setTag(TAGDP);
                 towerMarkerList.add(mMarker);
+                elemID=clickedMarker.getTitle();
             }
             return true;
         }
