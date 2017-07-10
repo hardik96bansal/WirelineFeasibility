@@ -189,7 +189,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // }
         mBean.setApiType(APIType.LOGIN);
         mBean.setRequestmethod(WEBAPI.POST);
-        mBean.setUrl(WEBAPI.getWEBAPI(APIType.LOGIN));
+        mBean.setUrl("http://111.93.46.11:810/token");
         mBean.setCtx(this);
         mBean.setMimeType("application/x-www-form-urlencoded");
         mBean.setmHandler(mHandler);
